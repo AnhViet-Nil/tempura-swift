@@ -4,7 +4,7 @@ project.name = "Tempura"
 tempura = target do |target|
     target.name = "Tempura"
     target.platform = :ios
-    target.deployment_target = 9.0
+    target.deployment_target = 10.0
     target.language = :swift
     target.type = :framework
     target.include_files = [
@@ -45,7 +45,7 @@ end
 tempuraTesting = target do |target|
     target.name = "TempuraTesting"
     target.platform = :ios
-    target.deployment_target = 9.0
+    target.deployment_target = 10.0
     target.language = :swift
     target.type = :framework
     target.include_files = [
@@ -78,14 +78,14 @@ demo = target do |target|
     
     target.include_files = [
         "Demo/**/*.swift",
-	   "Demo/Resources/**/*.*"
+	      "Demo/Resources/**/*.*"
     ]
 
     target.all_configurations.each do |configuration|
         configuration.product_bundle_identifier = "dk.bendingspoons.AppStation"
         configuration.settings["INFOPLIST_FILE"] = "Demo/Info.plist"
         configuration.settings["PRODUCT_NAME"] = "Demo"
-	configuration.settings["SWIFT_VERSION"] = "5.0"
+	      configuration.settings["SWIFT_VERSION"] = "5.0"
     end
 
     unit_tests_for target do |unit_test|
@@ -96,7 +96,7 @@ demo = target do |target|
 
         unit_test.all_configurations.each do |configuration|
             configuration.settings["INFOPLIST_FILE"] = "DemoTests/Info.plist"
-	    configuration.settings["SWIFT_VERSION"] = "5.0"
+            configuration.settings["SWIFT_VERSION"] = "5.0"
         end
 
     end

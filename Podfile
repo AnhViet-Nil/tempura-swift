@@ -1,17 +1,17 @@
+platform :ios, '10.0'
+
 source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
 use_frameworks!
 
 target 'Tempura' do
-  platform :ios, '9.0'
   podspec
 
   target 'TempuraTests' do
     inherit! :search_paths
     pod 'Quick', '~> 1.3'
     pod 'Nimble', '~> 7.3'
-    pod 'Katana', '~> 3.0'
   end
 
   target 'Demo' do
@@ -27,10 +27,8 @@ target 'Tempura' do
 end
 
 target 'TempuraTesting' do
-  platform :ios, '9.0'
-  # change this before releasing
+  podspec
   pod 'Tempura', :path => '.'
-  # pod 'Tempura', '~> 3.0'
 end
 
 post_install do |installer|

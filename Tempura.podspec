@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Bending Spoons' => 'team@bendingspoons.com' }
   s.source           = { :git => 'https://github.com/BendingSpoons/tempura-swift.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.dependency 'Katana', '>= 3.0', '< 4'
   s.swift_version = '5.0'
 

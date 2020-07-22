@@ -8,23 +8,17 @@ Pod::Spec.new do |s|
   s.author           = { 'Bending Spoons' => 'team@bendingspoons.com' }
   s.source           = { :git => 'https://github.com/BendingSpoons/tempura-swift.git', :tag => 'tempura-testing-v' + s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.weak_framework = "XCTest"
-  s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
-  #include this before releasing
+  s.pod_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"',
+  }
   s.dependency 'Tempura', '>= 4.0', '< 5.0'
+  s.dependency 'Katana', '>= 3.0', '< 4'
+  
   s.swift_version = '5.0'
 
   s.ios.source_files = [
     'Tempura/UITests/**/*.swift',
-  ]
-
-  s.pod_target_xcconfig = {
-    'OTHER_LDFLAGS' => '-weak-lswiftXCTest',
-    'OTHER_SWIFT_FLAGS' => '$(inherited) -suppress-warnings',
-    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"',
-    'ENABLE_BITCODE' => 'NO',
-    'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
-  }
-  
+  ]  
 end
