@@ -1,3 +1,10 @@
+## Tempura master
+* Bump min iOS version to 10.0
+
+## TempuraTesting master
+* Bump min iOS version to 10.0
+* Use `UIGraphicsImageRenderer` for snapshots which should significantly remove the memory impact of intermediate PNG files for UITests
+
 ## TempuraTesting 5.0.2
 *  Fix issue with `screenSize` not set on the View being tested. 
 
