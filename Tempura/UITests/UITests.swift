@@ -225,9 +225,7 @@ public enum UITests {
     let frame = UIScreen.main.bounds
     view.frame = frame
     
-    let snapshot = view.snapshot()
-    guard let image = snapshot else { return }
-    self.saveImage(image, description: description)
+    self.saveImage(view.snapshot(), description: description)
   }
   
   /// Ask for a snapshot of a UIView, when done the `completionClosure` is called.
@@ -247,15 +245,8 @@ public enum UITests {
       shouldRenderSafeArea: shouldRenderSafeArea,
       keyboardVisibility: keyboardVisibility
     ) { snapshot in
-      defer {
-        completionClosure()
-      }
-      
-      guard let image = snapshot else {
-        return
-      }
-      
-      self.saveImage(image, description: description)
+      self.saveImage(snapshot, description: description)
+      completionClosure()
     }
   }
   
@@ -300,7 +291,7 @@ public enum UITests {
     scrollView.setNeedsLayout()
     scrollView.layoutIfNeeded()
     
-    guard let snapshot = scrollView.snapshot() else { return }
+    let snapshot = scrollView.snapshot()
     self.saveImage(snapshot, description: description)
   }
   

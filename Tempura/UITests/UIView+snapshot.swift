@@ -9,7 +9,7 @@ import UIKit
 
 /// Create a snapshot image of self
 extension UIView {
-  func snapshot() -> UIImage? {
+  func snapshot() -> UIImage {
     let window: UIWindow?
     var removeFromSuperview: Bool = false
     
@@ -39,7 +39,7 @@ extension UIView {
                      isViewReadyClosure: @escaping (UIView) -> Bool,
                      shouldRenderSafeArea: Bool,
                      keyboardVisibility: UITests.KeyboardVisibility,
-                     _ completionClosure: @escaping (UIImage?) -> Void) {
+                     _ completionClosure: @escaping (UIImage) -> Void) {
     let window: UIWindow?
     var removeFromSuperview: Bool = false
     
@@ -75,7 +75,7 @@ extension UIView {
                          isViewReadyClosure: @escaping (UIView) -> Bool,
                          shouldRenderSafeArea: Bool,
                          keyboardVisibility: UITests.KeyboardVisibility,
-                         _ completionClosure: @escaping (UIImage?) -> Void) {
+                         _ completionClosure: @escaping (UIImage) -> Void) {
     
     let viewToWaitFor = viewToWaitFor ?? self
     guard isViewReadyClosure(viewToWaitFor) else {
@@ -95,18 +95,13 @@ extension UIView {
     completionClosure(self.takeSnapshot(shouldRenderSafeArea: shouldRenderSafeArea, keyboardVisibility: keyboardVisibility))
   }
   
-  private func takeSnapshot(shouldRenderSafeArea: Bool = false, keyboardVisibility: UITests.KeyboardVisibility = .hidden) -> UIImage? {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
-    self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
-
-    renderSafeAreaIfNeeded(shouldRenderSafeArea: shouldRenderSafeArea)
-
-    renderKeyboardIfNeeded(keyboardVisibility: keyboardVisibility)
-
-    let snapshot = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    return snapshot
+  private func takeSnapshot(shouldRenderSafeArea: Bool = false, keyboardVisibility: UITests.KeyboardVisibility = .hidden) -> UIImage {
+    let renderer = UIGraphicsImageRenderer(size: self.bounds.size)
+    return renderer.image { _ in
+      self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+      self.renderSafeAreaIfNeeded(shouldRenderSafeArea: shouldRenderSafeArea)
+      self.renderKeyboardIfNeeded(keyboardVisibility: keyboardVisibility)
+    }
   }
 
   private func renderKeyboardIfNeeded(keyboardVisibility: UITests.KeyboardVisibility) {
